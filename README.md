@@ -26,6 +26,159 @@ To Add Classes & domain propos:
 
 Propos for Existing classes 
 
+### data source structures
+**1000_movies_metadata.csv**
+* adult
+* budget
+* homepage
+* id
+* imdb_id
+* original_language
+* original_title
+* overview
+* popularity
+* poster_path
+* release_date
+* revenue
+* runtime
+* status
+* tagline
+* title
+* video
+* vote_average
+* vote_count
+
+**1000_keywords.csv**
+* id
+* keywords
+
+Example: 
+* col1: `862`	
+* col2: `[{'id': 931, 'name': 'jealousy'}, {'id': 4290, 'name': 'toy'}, {'id': 5202, 'name': 'boy'}, {'id': 6054, 'name': 'friendship'}, {'id': 9713, 'name': 'friends'}, {'id': 9823, 'name': 'rivalry'}, {'id': 165503, 'name': 'boy next door'}, {'id': 170722, 'name': 'new toy'}, {'id': 187065, 'name': 'toy comes to life'}]`
+
+**1000_links.csv**
+* movieId
+* imdbId
+* imdb_url
+* id
+
+Example:
+`1,0114709,https://www.imdb.com/title/tt0114709,862`
+
+**1000_movies_metadata.json**
+* all parent keys: ['genres', 'id', 'imdb_id', 'original_title', 'production_companies', 'production_countries', 'spoken_languages']
+
+```json
+{
+  "genres": [
+    {
+      "id": 16,
+      "name": "Animation"
+    },
+    {
+      "id": 35,
+      "name": "Comedy"
+    },
+    {
+      "id": 10751,
+      "name": "Family"
+    }
+  ],
+  "id": "862",
+  "imdb_id": "tt0114709",
+  "original_title": "Toy Story",
+  "production_companies": [
+    {
+      "name": "Pixar Animation Studios",
+      "id": 3
+    }
+  ],
+  "production_countries": [
+    {
+      "iso_3166_1": "US",
+      "name": "United States of America"
+    }
+  ],
+  "spoken_languages": [
+    {
+      "iso_639_1": "en",
+      "name": "English"
+    }
+  ]
+}
+```
+
+**1000_credits.json**
+* ['cast', 'crew', 'id']
+
+```json
+{
+  "cast": [
+    {
+      "cast_id": 14,
+      "character": "Woody (voice)",
+      "credit_id": "52fe4284c3a36847f8024f95",
+      "gender": 2,
+      "id": 31,
+      "name": "Tom Hanks",
+      "order": 0,
+      "profile_path": "/pQFoyx7rp09CJTAb932F2g8Nlho.jpg"
+    },
+    ...
+  ],
+  "crew": [
+    {
+      "credit_id": "52fe4284c3a36847f8024f49",
+      "department": "Directing",
+      "gender": 2,
+      "id": 7879,
+      "job": "Director",
+      "name": "John Lasseter",
+      "profile_path": "/7EdqiNbr4FRjIhKHyPPdFfEEEFG.jpg"
+    },
+    {
+      "credit_id": "52fe4284c3a36847f8024f4f",
+      "department": "Writing",
+      "gender": 2,
+      "id": 12891,
+      "job": "Screenplay",
+      "name": "Joss Whedon",
+      "profile_path": "/dTiVsuaTVTeGmvkhcyJvKp2A5kr.jpg"
+    },
+   ...
+  ],
+  "id": 862
+}
+
+```
+
+
+
+CSV entries are connected via `id`
+
+
+### questions/issue
+
+**Cardinality** 
+
+CSV files: Movie (1000_movies_metadata.csv):
+- hasWikidataLink (url) - OPTIONAL
+
+Does `OPTIONAL` mean that the cardinality of all other properties of this class is `min/exact:1` ?
+
+The reason for asking is that, other properties/columns from this data source, such as `tagline` and `homepage`, do not always having values `1000_movies_metadata.csv`. Hence if a owl cardinality `min/exact:1` is imposed, the resulting graph will break it.
+
+
+Another question related to hasWikidataLink prop is, whether I should supplement tha graph with the values for that prop, since they are not present in the CSV
+
+
+
+
+
+> - Be careful to construct appropriate subjects for intermediate nodes
+> - Be careful about the cardinalities of the relation between the master and intermediate node
+
+
 Existing obj props:
 
 ```
