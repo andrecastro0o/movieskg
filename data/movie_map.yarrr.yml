@@ -59,6 +59,18 @@ mappings:
         o: 
           v: $(title) 
           datatype: xsd:string
+  MovieKeywords:
+    sources:
+      - [fixed_1000_keywords.csv~csv]
+    s: ex:movie_$(id)
+    po:
+      - p: mo:keyword
+        o: 
+          function: grel:string_split
+          parameters: 
+            - [grel:valueParameter, $(keywords)]
+            - [grel:p_string_sep, ','] 
+  
   IMDBResource:
     sources:
       - [1000_links.csv~csv]
@@ -147,22 +159,3 @@ mappings:
 
 
 
-# sources:  
-#   Movie_json:
-#     access: 1000_movies_metadata.json
-#     referenceFormulation: jsonpath
-#     iterator: $ # [*]genres[*]
-# mappings:
-#   movie:
-#       sources: Movie_json
-#       s: ex_TEST_$(id)
-#       po: 
-#         - [a, mo:TEST_name]
-
-
-#     # sources:
-#     #   - [1000_movies_metadata.json~jsonpath, "$[*]"]
-#     # s: ex_TEST_$(original_title)
-#     # po: 
-#     #   - [a, mo:TEST]
-#     #   - [mo:title, $(original_title) ]

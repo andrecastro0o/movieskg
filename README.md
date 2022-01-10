@@ -30,23 +30,23 @@ Propos for Existing classes
 
 ## data sources structures - mapped to properties
 **1000_movies_metadata.csv**
-* adult - Movie: isAdultMovie (boolean) **Transform**
-* budget - Movie: budget (integer)
-* homepage - Movie: homepage (url) **Transform**
-* id  - Movie: id (String) - Movie URI
-* imdb_id - hasIMDBResource (IMDBResource)  - mapped to IMDBResource instances 
-* original_language
-* original_title
-* overview - Movie: description (String)
-* release_date - Movie: hasReleaseDate (Date)
-* revenue - Movie: revenue (integer)
-* runtime - Movie: runtime (integer)
+* adult - Movie: isAdultMovie (boolean) **Transform** - DONE
+* budget - Movie: budget (integer) - DONE
+* homepage - Movie: homepage (url) - DONE
+* id  - Movie: id (String) - Movie URI - DONE
+* imdb_id - hasIMDBResource (IMDBResource)  - mapped to IMDBResource instances - DONE
+* original_language - DONE
+* original_title - DONE
+* overview - Movie: description (String) - DONE
+* release_date - Movie: hasReleaseDate (Date) - DONE
+* revenue - Movie: revenue (integer) - DONE
+* runtime - Movie: runtime (integer) - DONE
 * status
-* tagline - Movie: tagline (String)
-* title - Movie: hasName (String)
+* tagline - Movie: tagline (String) - DONE
+* title - Movie: hasName (String) - DONE
 * video
-* vote_average - IMDBResource: vote_average (float)
-* vote_count - IMDBResource: - vote_count (integer)
+* vote_average - IMDBResource: vote_average (float) - DONE
+* vote_count - IMDBResource: - vote_count (integer) - DONE
 
 **1000_keywords.csv**
 * id - Movie URI
@@ -58,8 +58,8 @@ Example:
 
 **1000_links.csv**
 * movieId
-* imdbId - IMDBResource: id (String)
-* imdb_url -IMDBResource: url (String)
+* imdbId - IMDBResource: id (String) DONE
+* imdb_url -IMDBResource: url (String) DONE
 
 Example:
 `1,0114709,https://www.imdb.com/title/tt0114709,862`
@@ -69,16 +69,16 @@ Example:
 all parent keys: ['genres', 'id', 'imdb_id', 'original_title', 'production_companies', 'production_countries', 'spoken_languages']
 
 * genres
-    * id - Genre: id (Integer)
+    * id - Genre: id (Integer) DONE
     * name - Genre: hasName (String)
-* id - use for linking from Movie instance URI
+* id - link to Movie instance URI - DONE
 * imdb_id
-* original_title 
+* original_title  Movie: originalTitle (String) - DONE
 * production_companies
-    * name - FilmStudio: hasName (String)
-    * id - FilmStudio: id (Integer)
-* production_countries - Movie: hasProductionCountry (String)
-* spoken_languages - Movie: hasSpokenLanguage (String)
+    * name - FilmStudio: hasName (String) DONE
+    * id - FilmStudio: id (Integer) DONE
+* production_countries - Movie: hasProductionCountry (String) - DONE
+* spoken_languages - Movie: hasSpokenLanguage (String) - DONE
 
 ```json
 {
