@@ -228,8 +228,36 @@ mappings:
             - 
               - str1
               - $(.crew[*].job)
-            - [str2, "Director"]  
+            - [str2, "Director"]
+      - p: mo:hasWriter
+        o:
+          v: ex:writer_$(.crew[*].name)_$(.crew[*].job)
+          type: iri
+        condition:
+            function: equal
+            parameters:
+              - 
+                - str1
+                - $(.crew[*].job)
+              - [str2, "Writer"]  
 
+  # Movie_hasWriter:
+  #   sources:
+  #     - [1000_credits.json~jsonpath, "$[*]"]
+  #   s: ex:movie_$(id)    
+  #   po:
+  #     - [a, mo:Movie]            
+  #     - p: mo:hasWriter
+  #       o:
+  #         v: ex:writer_$(.crew[*].name)_$(.crew[*].job)
+  #         type: iri
+  #         condition:
+  #           function: equal
+  #           parameters:
+  #             - 
+  #               - str1
+  #               - $(.crew[*].job)
+  #             - [str2, "Writer"]  
 
   Director:
     sources:
@@ -243,8 +271,21 @@ mappings:
     po:
       - [a, mo:MovieDirector]
       - [mo:hasName, $(.name)]
-      - p: mo:job
-        o: $(.job)
+
+  Writer:
+    sources:
+      - [1000_credits.json~jsonpath, "$[*].crew[*]"]
+    s: ex:writer_$(.name)
+    condition:
+      function: equal
+      parameters:
+        - [str1, $(.job)]
+        - [str2, "Writer"]    
+    po:
+      - [a, mo:Writer]
+      - [mo:hasName, $(.name)]
+
+
 
 
       # - p: mo:id # change to incoming IRI
