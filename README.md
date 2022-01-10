@@ -49,8 +49,8 @@ Propos for Existing classes
 * vote_count - IMDBResource: - vote_count (integer) - DONE
 
 **1000_keywords.csv**
-* id - Movie URI
-* keywords - Movie: keyword (String) (transform: split)
+* id - Movie instance URI
+* keywords - Movie: keyword (String) (transform: split) DONE
 
 Example: 
 * col1: `862`	
@@ -125,9 +125,9 @@ all parent keys: ['genres', 'id', 'imdb_id', 'original_title', 'production_compa
 ['cast', 'crew', 'id']
 
 * cast
-    * cast_id  - Cast: URI
-    * character - Cast: hasCastCharacter (String)
-    * credit_id 
+    * cast_id  
+    * character - Cast: hasCastCharacter (String) - DONE
+    * credit_id - Cast: URI - DONE
     * gender - Actor: hasGender (string) transform gender: 0==unknown,1==female, 2==male (gender: unsure if it refers to character or actor) 
     * id  - Actor: URI +  Cast: hasCastActor(Actor)
     * name - Actor: hasName (string)

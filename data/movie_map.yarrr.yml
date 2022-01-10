@@ -59,6 +59,7 @@ mappings:
         o: 
           v: $(title) 
           datatype: xsd:string
+
   MovieKeywords:
     # scripts/split_keywords.py preprocesses cleaning 1000_keywords.csv
     sources:
@@ -67,7 +68,7 @@ mappings:
     po:
       - p: mo:keyword
         o: $(keyword)
-  
+
   IMDBResource:
     sources:
       - [1000_links.csv~csv]
@@ -82,6 +83,7 @@ mappings:
         o: 
           v: $(imdbId)
           datatype: xsd:string
+
 # IMDBResource_vote Note:
 # instances that only exist in this resource here wont have
 # mo:id (todo) or mo:url 
@@ -123,7 +125,8 @@ mappings:
       - p: mo:hasGenre
         o:
           v: ex:genre_$(.genres[*].id)
-          type: iri  
+          type: iri
+
   Movie_json_FilmStudio:
     sources:
       - [1000_movies_metadata.json~jsonpath, "$[*].production_companies[*]"]
@@ -137,6 +140,7 @@ mappings:
         o:
           v: $(.id)
           datatype: xsd:integer
+
   Movie_json_Genre:
     sources:
       - [1000_movies_metadata.json~jsonpath, "$[*].genres[*]"]
@@ -150,6 +154,69 @@ mappings:
         o:
           v: $(.id)
           datatype: xsd:integer
+
+  Movie_hasCast:
+    sources:
+      - [1000_credits.json~jsonpath, "$[*]"]
+    s: ex:movie_$(id)
+    po:
+      - [a, mo:Movie]
+      - p: mo:hasCast
+        o:
+          v: ex:cast_$(.cast[*].credit_id)
+          type: iri
+  
+  Cast:
+    sources:
+      - [1000_credits.json~jsonpath, "$[*].cast[*]"]
+    s: ex:cast_$(.credit_id)
+    po:
+      - [a, mo:Cast]
+      - p: mo:hasCastCharacter
+        o:
+          v: $(.character)
+      - p: mo:hasActor 
+        o:
+          v: ex:actor_$(.name)
+          type: iri
+
+  Actor:
+    sources:
+      - [1000_credits.json~jsonpath, "$[*].cast[*]"]
+    s: ex:actor_$(.name)
+    po:
+      - [a, mo:Actor]
+      - p: mo:hasName
+        o:
+          v: $(.name)
+      - p: mo:hasGender
+        o: "unknown"
+        condition:
+          function: equal
+          parameters:
+            - [str1, $(.gender)]
+            - [str2, "0"]  
+      - p: mo:hasGender
+        o: "female"
+        condition:
+          function: equal
+          parameters:
+            - [str1, $(.gender)]
+            - [str2, "1"]  
+      - p: mo:hasGender
+        o: "male"
+        condition:
+          function: equal
+          parameters:
+            - [str1, $(.gender)]
+            - [str2, "2"]  
+
+
+      # - p: mo:id # change to incoming IRI
+      #   o: 
+      #     v: $(.cast_id)
+
+
 
 
 
