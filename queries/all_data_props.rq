@@ -9,5 +9,8 @@ WHERE {
     ?obj_prop rdf:type owl:DatatypeProperty .
     OPTIONAL{ ?obj_prop rdfs:domain ?domain }
     OPTIONAL{ ?obj_prop rdfs:range ?range }
+
+    FILTER (?domain = :Movie ) .
+
 }
 ORDER BY ?domain

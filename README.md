@@ -24,7 +24,7 @@ To Add Classes & domain propos:
 * IMDBResource
 * Cast
 
-Existing classes
+Propos for Existing classes 
 
 Existing obj props:
 
