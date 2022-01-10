@@ -153,6 +153,12 @@ xsd:date rdf:type rdfs:Datatype .
                 rdfs:range xsd:date .
 
 
+###  http://semantics.id/ns/example/movie#hasWikidataLink
+:hasWikidataLink rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :Movie ;
+                 rdfs:range xsd:anyURI .
+
+
 ###  http://semantics.id/ns/example/movie#homepage
 :homepage rdf:type owl:DatatypeProperty ;
           rdfs:domain :Movie ;
@@ -183,6 +189,12 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://semantics.id/ns/example/movie#revenue
 :revenue rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Movie ;
+         rdfs:range xsd:int .
+
+
+###  http://semantics.id/ns/example/movie#runtime
+:runtime rdf:type owl:DatatypeProperty ;
          rdfs:domain :Movie ;
          rdfs:range xsd:int .
 
@@ -236,11 +248,91 @@ xsd:date rdf:type rdfs:Datatype .
 
 
 ###  http://semantics.id/ns/example/movie#IMDBResource
-:IMDBResource rdf:type owl:Class .
+:IMDBResource rdf:type owl:Class ;
+              rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                owl:onProperty :url ;
+                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                owl:onDataRange owl:rational
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :id ;
+                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                owl:onDataRange owl:rational
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :vote_average ;
+                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                owl:onDataRange owl:rational
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :vote_count ;
+                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                owl:onDataRange owl:rational
+                              ] .
 
 
 ###  http://semantics.id/ns/example/movie#Movie
-:Movie rdf:type owl:Class .
+:Movie rdf:type owl:Class ;
+       rdfs:subClassOf [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasIMDBResource ;
+                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                         owl:onClass :IMDBResource
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :budget ;
+                         owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                         owl:onDataRange owl:rational
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :description ;
+                         owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                         owl:onDataRange owl:rational
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasName ;
+                         owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                         owl:onDataRange owl:rational
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :hasReleaseDate ;
+                         owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                         owl:onDataRange owl:rational
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :homepage ;
+                         owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                         owl:onDataRange owl:rational
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :isAdultMovie ;
+                         owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                         owl:onDataRange owl:rational
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :keyword ;
+                         owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                         owl:onDataRange owl:rational
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :revenue ;
+                         owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                         owl:onDataRange owl:rational
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :runtime ;
+                         owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                         owl:onDataRange owl:rational
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :tagline ;
+                         owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                         owl:onDataRange owl:rational
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :id ;
+                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                         owl:onDataRange owl:rational
+                       ] .
 
 
 ###  http://semantics.id/ns/example/movie#MovieDirector
