@@ -1,0 +1,16 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX mo: <http://semantics.id/ns/example/movie#>
+PREFIX ex: <http://semantics.id/ns/example#>
+
+SELECT *
+WHERE  {
+    ?s a mo:Movie ;
+       mo:originalTitle ?originalTitle ;
+       mo:hasFilmStudio ?hasFilmStudio .
+}
+ORDER BY ?s
+LIMIT 50

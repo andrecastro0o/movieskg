@@ -106,11 +106,23 @@ mappings:
       - p: mo:hasSpokenLanguage
         o:
           v: $(.spoken_languages[*].iso_639_1)
-  # Movie_json:
-  #   sources:
-  #     - [1000_movies_metadata.json~jsonpath, "$[*]"]
-
-
+      - p: mo:hasFilmStudio
+        o:
+          v: ex:filmstudio_$(.production_companies[*].id)
+          type: iri   # this is a much simpler way to link entities
+  Movie_json_FilmStudio:
+    sources:
+      - [1000_movies_metadata.json~jsonpath, "$[*].production_companies[*]"]
+    s: ex:filmstudio_$(.id)
+    po:
+      - [a, mo:FilmStudio]
+      - p: mo:hasName
+        o:
+          v: $(.name)
+      - p: mo:id
+        o:
+          v: $(.id)
+          datatype: xsd:string
 
 
 
