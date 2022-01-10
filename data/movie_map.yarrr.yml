@@ -33,12 +33,8 @@ mappings:
           datatype: xsd:string
       - p: mo:hasIMDBResource
         o:
-          mapping: IMDBResource # IMDBResource $(imdbId) does not have tt prefix 
-          condition:
-            function: equal
-            parameters:
-              - [str1, $(imdb_id), s]   ## $(imdb_id) has tt prefix
-              - [str2, tt$(imdbId), o]  ## appended prefix tt
+           v:  ex:imdbresource_$(imdb_id) 
+           type: iri
       - p: mo:description
         o:    
           v: $(overview)
@@ -77,11 +73,15 @@ mappings:
         o: 
           v: $(imdbId)
           datatype: xsd:string
-  IMDBResource_vote:
+# IMDBResource_vote Note:
+# instances that only exist in this resource here wont have
+# mo:id (todo) or mo:url 
+  IMDBResource_vote:  
     sources:
       - [1000_movies_metadata.csv~csv]
     s: ex:imdbresource_$(imdb_id)
-    po:    
+    po: 
+      - [a, mo:IMDBResource]
       - p: mo:vote_average
         o:
           v: $(vote_average)
@@ -90,6 +90,7 @@ mappings:
         o:
           v: $(vote_count)
           datatype: xsd:integer
+
   Movie_json:
     sources:
       - [1000_movies_metadata.json~jsonpath, "$[*]"]
