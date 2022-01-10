@@ -51,6 +51,12 @@ xsd:date rdf:type rdfs:Datatype .
           owl:minCardinality 1 .
 
 
+###  http://semantics.id/ns/example/movie#hasCast
+:hasCast rdf:type owl:ObjectProperty ;
+         rdfs:domain :Movie ;
+         rdfs:range :Cast .
+
+
 ###  http://semantics.id/ns/example/movie#hasCrew
 :hasCrew rdf:type owl:ObjectProperty ;
          rdfs:domain :Movie ;
@@ -60,8 +66,7 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://semantics.id/ns/example/movie#hasFilmStudio
 :hasFilmStudio rdf:type owl:ObjectProperty ;
                rdfs:domain :Movie ;
-               rdfs:range :FilmStudio ;
-               owl:minCardinality 1 .
+               rdfs:range :FilmStudio .
 
 
 ###  http://semantics.id/ns/example/movie#hasGenre
@@ -147,10 +152,23 @@ xsd:date rdf:type rdfs:Datatype .
          rdfs:range xsd:string .
 
 
+###  http://semantics.id/ns/example/movie#hasProductionCountry
+:hasProductionCountry rdf:type owl:DatatypeProperty ;
+                      rdfs:subPropertyOf owl:topDataProperty ;
+                      rdfs:domain :Movie ;
+                      rdfs:range xsd:string .
+
+
 ###  http://semantics.id/ns/example/movie#hasReleaseDate
 :hasReleaseDate rdf:type owl:DatatypeProperty ;
                 rdfs:domain :Movie ;
                 rdfs:range xsd:date .
+
+
+###  http://semantics.id/ns/example/movie#hasSpokenLanguage
+:hasSpokenLanguage rdf:type owl:DatatypeProperty ;
+                   rdfs:domain :Movie ;
+                   rdfs:range xsd:string .
 
 
 ###  http://semantics.id/ns/example/movie#hasWikidataLink
@@ -185,6 +203,12 @@ xsd:date rdf:type rdfs:Datatype .
          rdfs:subPropertyOf owl:topDataProperty ;
          rdfs:domain :Movie ;
          rdfs:range xsd:string .
+
+
+###  http://semantics.id/ns/example/movie#originalTitle
+:originalTitle rdf:type owl:DatatypeProperty ;
+               rdfs:domain :Movie ;
+               rdfs:range xsd:string .
 
 
 ###  http://semantics.id/ns/example/movie#revenue
