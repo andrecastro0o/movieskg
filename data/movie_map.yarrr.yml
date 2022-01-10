@@ -98,10 +98,17 @@ mappings:
       - [a, mo:Movie]
       - p: mo:originalTitle
         o:
-          value: $(original_title)
+          v: $(original_title)
           datatype: xsd:string
-
-
+      - p: mo:hasProductionCountry
+        o:
+          v: $(.production_countries[*].iso_3166_1)
+      - p: mo:hasSpokenLanguage
+        o:
+          v: $(.spoken_languages[*].iso_639_1)
+  # Movie_json:
+  #   sources:
+  #     - [1000_movies_metadata.json~jsonpath, "$[*]"]
 
 
 
