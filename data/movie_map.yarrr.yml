@@ -212,6 +212,34 @@ mappings:
             - [str2, "2"]  
 
 
+  # Movie_hasCast:
+  #   sources:
+  #     - [1000_credits.json~jsonpath, "$[*]"]
+  #   s: ex:movie_$(id)
+  #   po:
+  #     - [a, mo:Movie]
+  #     - p: mo:hasCast
+  #       o:
+  #         v: ex:cast_$(.cast[*].credit_id)
+  #         type: iri
+  
+
+  Director:
+    sources:
+      - [1000_credits.json~jsonpath, "$[*].crew[*]"]
+    s: ex:director_$(.name)
+    condition:
+      function: equal
+      parameters:
+        - [str1, $(.job)]
+        - [str2, "Director"]    
+    po:
+      - [a, mo:MovieDirector]
+      - [mo:hasName, $(.name)]
+      - p: mo:job
+        o: $(.job)
+
+
       # - p: mo:id # change to incoming IRI
       #   o: 
       #     v: $(.cast_id)
