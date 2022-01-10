@@ -15,15 +15,16 @@ with open(file_path, newline='') as csv_file:
         movie_id = row['id']
         keywords_str = row['keywords']
         keywords = re.findall(kw_regex, keywords_str)
-        new_keywords_str = ",".join(keywords)
-        new_keywords_dict = {
-            'id':movie_id, 
-            'keywords': new_keywords_str
-            }
-        new_keywords_listofdicts.append(new_keywords_dict)
+        # new_keywords_str = ",".join(keywords)
+        for kw in keywords:
+            new_kw_dict = {
+                'id':movie_id, 
+                'keyword': kw
+                }
+            new_keywords_listofdicts.append(new_kw_dict)
 
 with open(output_file_path, 'w', newline='') as csv_file:
-    fields = ['id', 'keywords']
+    fields = ['id', 'keyword']
     writer = csv.DictWriter(csv_file, fieldnames=fields)
     writer.writeheader()
     for l_item in new_keywords_listofdicts: 

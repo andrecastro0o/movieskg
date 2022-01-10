@@ -60,16 +60,13 @@ mappings:
           v: $(title) 
           datatype: xsd:string
   MovieKeywords:
+    # scripts/split_keywords.py preprocesses cleaning 1000_keywords.csv
     sources:
       - [fixed_1000_keywords.csv~csv]
     s: ex:movie_$(id)
     po:
       - p: mo:keyword
-        o: 
-          function: grel:string_split
-          parameters: 
-            - [grel:valueParameter, $(keywords)]
-            - [grel:p_string_sep, ','] 
+        o: $(keyword)
   
   IMDBResource:
     sources:
