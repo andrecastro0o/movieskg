@@ -1,0 +1,13 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX : <http://semantics.id/ns/example/movie#>
+SELECT *
+WHERE {
+    ?obj_prop rdf:type owl:DatatypeProperty .
+    OPTIONAL{ ?obj_prop rdfs:domain ?domain }
+    OPTIONAL{ ?obj_prop rdfs:range ?range }
+}
+ORDER BY ?domain
