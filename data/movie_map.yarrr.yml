@@ -63,17 +63,32 @@ mappings:
         o: 
           v: $(title) 
           datatype: xsd:string
-      # - p: mo:vote_average
-      #   o:
-      #     mapping: IMDBResource
-      #     v: vote_average
-      #     datatype: xsd:float
-
-
   IMDBResource:
     sources:
       - [1000_links.csv~csv]
     s: ex:imdbresource_tt$(imdbId)
     po: 
       - [a, mo:IMDBResource]
-      - [mo:url, $(imdb_url)] 
+      - p: mo:url
+        o: 
+          v: $(imdb_url)
+          datatype: xsd:string    
+      - p: mo:id
+        o: 
+          v: $(imdbId)
+          datatype: xsd:string    
+
+  IMDBResource_vote:
+    sources:
+      - [1000_movies_metadata.csv~csv]
+    s: ex:imdbresource_$(imdb_id)
+    po:    
+      - p: mo:vote_average
+        o:
+          v: $(vote_average)
+          datatype: xsd:float
+      - p: mo:vote_count
+        o:
+          v: $(vote_count)
+          datatype: xsd:integer
+

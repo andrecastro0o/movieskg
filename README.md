@@ -1,6 +1,8 @@
 # Process
 Time tracking:
-* 07:30 - 
+* 07:30 - 2:00
+* 
+
 
 ## Ontology: movie.ttl
 
@@ -32,7 +34,7 @@ Propos for Existing classes
 * budget - Movie: budget (integer)
 * homepage - Movie: homepage (url) **Transform**
 * id  - Movie: id (String) - Movie URI
-* imdb_id - hasIMDBResource (IMDBResource) **Transform**  
+* imdb_id - hasIMDBResource (IMDBResource)  - mapped to IMDBResource instances 
 * original_language
 * original_title
 * overview - Movie: description (String)
@@ -52,13 +54,12 @@ Propos for Existing classes
 
 Example: 
 * col1: `862`	
-* col2: `[{'id': 931, 'name': 'jealousy'}, {'id': 4290, 'name': 'toy'}, {'id': 5202, 'name': 'boy'}, {'id': 6054, 'name': 'friendship'}, {'id': 9713, 'name': 'friends'}, {'id': 9823, 'name': 'rivalry'}, {'id': 165503, 'name': 'boy next door'}, {'id': 170722, 'name': 'new toy'}, {'id': 187065, 'name': 'toy comes to life'}]`
+* col2: `[{'id': 931, 'name': 'jealousy'}, {'id': 4290, 'name': 'toy'}, {'id': 5202, 'name': 'boy'}, {'id': 6054, 'name': 'friendship'}, {'id': 9713, 'name': 'friends'}, {'id': 9823, 'name': 'rivalry'}, {'id': 165503, ':joinConditionname': 'boy next door'}, {'id': 170722, 'name': 'new toy'}, {'id': 187065, 'name': 'toy comes to life'}]`
 
 **1000_links.csv**
 * movieId
 * imdbId - IMDBResource: id (String)
 * imdb_url -IMDBResource: url (String)
-* id - use for linking from Movie instance URI
 
 Example:
 `1,0114709,https://www.imdb.com/title/tt0114709,862`
