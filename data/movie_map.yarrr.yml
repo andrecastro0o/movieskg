@@ -111,6 +111,10 @@ mappings:
         o:
           v: ex:filmstudio_$(.production_companies[*].id)
           type: iri   # this is a much simpler way to link entities
+      - p: mo:hasGenre
+        o:
+          v: ex:genre_$(.genres[*].id)
+          type: iri  
   Movie_json_FilmStudio:
     sources:
       - [1000_movies_metadata.json~jsonpath, "$[*].production_companies[*]"]
@@ -123,7 +127,20 @@ mappings:
       - p: mo:id
         o:
           v: $(.id)
-          datatype: xsd:string
+          datatype: xsd:integer
+  Movie_json_Genre:
+    sources:
+      - [1000_movies_metadata.json~jsonpath, "$[*].genres[*]"]
+    s: ex:genre_$(.id)
+    po:
+      - [a, mo:Genre]
+      - p: mo:hasName
+        o:
+          v: $(.name)
+      - p: mo:id
+        o:
+          v: $(.id)
+          datatype: xsd:integer
 
 
 
