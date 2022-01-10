@@ -76,8 +76,7 @@ mappings:
       - p: mo:id
         o: 
           v: $(imdbId)
-          datatype: xsd:string    
-
+          datatype: xsd:string
   IMDBResource_vote:
     sources:
       - [1000_movies_metadata.csv~csv]
@@ -91,4 +90,42 @@ mappings:
         o:
           v: $(vote_count)
           datatype: xsd:integer
+  Movie_json:
+    sources:
+      - [1000_movies_metadata.json~jsonpath, "$[*]"]
+    s: ex:movie_$(id)
+    po:
+      - [a, mo:Movie]
+      - p: mo:originalTitle
+        o:
+          value: $(original_title)
+          datatype: xsd:string
 
+
+
+
+
+
+
+
+
+
+# sources:  
+#   Movie_json:
+#     access: 1000_movies_metadata.json
+#     referenceFormulation: jsonpath
+#     iterator: $ # [*]genres[*]
+# mappings:
+#   movie:
+#       sources: Movie_json
+#       s: ex_TEST_$(id)
+#       po: 
+#         - [a, mo:TEST_name]
+
+
+#     # sources:
+#     #   - [1000_movies_metadata.json~jsonpath, "$[*]"]
+#     # s: ex_TEST_$(original_title)
+#     # po: 
+#     #   - [a, mo:TEST]
+#     #   - [mo:title, $(original_title) ]
