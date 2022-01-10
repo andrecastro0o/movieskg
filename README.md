@@ -28,16 +28,14 @@ Propos for Existing classes
 
 ## data sources structures - mapped to properties
 **1000_movies_metadata.csv**
-* adult - Movie: isAdultMovie (boolean)
+* adult - Movie: isAdultMovie (boolean) **Transform**
 * budget - Movie: budget (integer)
-* homepage - Movie homepage (url)
+* homepage - Movie: homepage (url) **Transform**
 * id  - Movie: id (String) - Movie URI
 * imdb_id - hasIMDBResource (IMDBResource) **Transform**  
 * original_language
 * original_title
 * overview - Movie: description (String)
-* popularity
-* poster_path
 * release_date - Movie: hasReleaseDate (Date)
 * revenue - Movie: revenue (integer)
 * runtime - Movie: runtime (integer)
@@ -185,9 +183,22 @@ all parent keys: ['genres', 'id', 'imdb_id', 'original_title', 'production_compa
 ```
 
 
+## Mapping with RMLmapper & YARRRML
+### YARRRML
 
-CSV entries are connected via `id`
+`docker pull rmlio/yarrrml-parser:latest`
 
+yarrrml mapping file [data/movie_map.yarrr.yml](./data/movie_map.yarrr.yml)
+
+
+**convert YAML to RML**
+
+`docker run --rm -it -v $(pwd)/data:/data rmlio/yarrrml-parser:latest  -i /data/movie_map.yarrr.yml -o /data/tmp/movie_map.yarrr.ttl
+` 
+
+**map CSV to rules people.rml.ttl**
+
+`docker run --rm -v $(pwd)/data/:/data/ rmlio/rmlmapper-java -m /data/tmp/movie_map.yarrr.ttl -s turtle -o /data/output/all.ttl`
 
 ### questions/issue
 
@@ -249,6 +260,9 @@ arq --data=movie.ttl --query=queries/all_data_props.rq
     * [ ] :Genre (they miss Genre id property)
     * [ ] :FilmStudio (they miss Genre id property)
 * [ ] (remove unused props foaf:knows :friendOf)
+
+
+* check mo:hasReleaseDate value format
 # Assignment
 ## Semantization of CSV, JSON
 

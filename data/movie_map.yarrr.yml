@@ -1,0 +1,79 @@
+prefixes:
+  mo: http://semantics.id/ns/example/movie#
+  ex: http://semantics.id/ns/example#
+  grel: http://users.ugent.be/~bjdmeest/function/grel.ttl# 
+  schema: http://schema.org/
+  xsd: http://www.w3.org/2001/XMLSchema/
+
+mappings:
+  Movie:
+    sources:
+      - [1000_movies_metadata.csv~csv]
+    s: ex:movie_$(id)
+    po:
+      - [a, mo:Movie]
+      - p: mo:isAdultMovie
+        o: 
+          function: grel:toLowerCase
+          parameters:
+            - [grel:valueParameter, $(adult)]
+          datatype: xsd:boolean
+
+      - p: mo:budget
+        o: 
+          v: $(budget)
+          datatype: xsd:integer
+      - p: mo:homepage
+        o: 
+          v: $(homepage)
+          datatype: xsd:anyURI
+      - p: mo:id
+        o: 
+          v: $(id)
+          datatype: xsd:string
+      - p: mo:hasIMDBResource
+        o:
+          mapping: IMDBResource # IMDBResource $(imdbId) does not have tt prefix 
+          condition:
+            function: equal
+            parameters:
+              - [str1, $(imdb_id), s]   ## $(imdb_id) has tt prefix
+              - [str2, tt$(imdbId), o]  ## appended prefix tt
+      - p: mo:description
+        o:    
+          v: $(overview)
+          language: en
+      - p: mo:hasReleaseDate
+        o: 
+          v: $(release_date) 
+          datatype: xsd:date
+      - p: mo:revenue
+        o: 
+          v: $(revenue) 
+          datatype: xsd:integer
+      - p: mo:runtime
+        o: 
+          v: $(runtime) 
+          datatype: xsd:integer
+      - p: mo:tagline
+        o: 
+          v: $(tagline) 
+          datatype: xsd:string
+      - p: mo:hasName
+        o: 
+          v: $(title) 
+          datatype: xsd:string
+      # - p: mo:vote_average
+      #   o:
+      #     mapping: IMDBResource
+      #     v: vote_average
+      #     datatype: xsd:float
+
+
+  IMDBResource:
+    sources:
+      - [1000_links.csv~csv]
+    s: ex:imdbresource_tt$(imdbId)
+    po: 
+      - [a, mo:IMDBResource]
+      - [mo:url, $(imdb_url)] 
