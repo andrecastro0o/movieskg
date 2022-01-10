@@ -45,6 +45,7 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://semantics.id/ns/example/movie#hasActor
 :hasActor rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf owl:topObjectProperty ;
           rdfs:domain :Cast ,
                       :Movie ;
           rdfs:range :Actor ;
@@ -53,24 +54,28 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://semantics.id/ns/example/movie#hasCast
 :hasCast rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf owl:topObjectProperty ;
          rdfs:domain :Movie ;
          rdfs:range :Cast .
 
 
 ###  http://semantics.id/ns/example/movie#hasCrew
 :hasCrew rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf owl:topObjectProperty ;
          rdfs:domain :Movie ;
          rdfs:range <http://xmlns.com/foaf/0.1/Person> .
 
 
 ###  http://semantics.id/ns/example/movie#hasFilmStudio
 :hasFilmStudio rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf owl:topObjectProperty ;
                rdfs:domain :Movie ;
                rdfs:range :FilmStudio .
 
 
 ###  http://semantics.id/ns/example/movie#hasGenre
 :hasGenre rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf owl:topObjectProperty ;
           rdfs:domain :Movie ;
           rdfs:range :Genre ;
           owl:minCardinality 1 .
@@ -78,6 +83,7 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://semantics.id/ns/example/movie#hasIMDBResource
 :hasIMDBResource rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf owl:topObjectProperty ;
                  rdfs:domain :Movie ;
                  rdfs:range :IMDBResource .
 
@@ -110,6 +116,7 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://semantics.id/ns/example/movie#budget
 :budget rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf owl:topDataProperty ;
         rdfs:domain :Movie ;
         rdfs:range xsd:integer .
 
@@ -123,31 +130,38 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://semantics.id/ns/example/movie#hasCastCharacter
 :hasCastCharacter rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf owl:topDataProperty ;
                   rdfs:domain :Cast ;
                   rdfs:range xsd:string .
 
 
 ###  http://semantics.id/ns/example/movie#hasDateOfBirth
-:hasDateOfBirth rdf:type owl:DatatypeProperty ,
-                         owl:FunctionalProperty ;
+:hasDateOfBirth rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf owl:topDataProperty ;
+                rdf:type owl:FunctionalProperty ;
                 rdfs:domain <http://xmlns.com/foaf/0.1/Person> .
 
 
 ###  http://semantics.id/ns/example/movie#hasEstablishedDate
-:hasEstablishedDate rdf:type owl:DatatypeProperty ,
-                             owl:FunctionalProperty ;
+:hasEstablishedDate rdf:type owl:DatatypeProperty ;
+                    rdfs:subPropertyOf owl:topDataProperty ;
+                    rdf:type owl:FunctionalProperty ;
                     rdfs:domain :FilmStudio .
 
 
 ###  http://semantics.id/ns/example/movie#hasGender
-:hasGender rdf:type owl:DatatypeProperty ,
-                    owl:FunctionalProperty ;
+:hasGender rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf owl:topDataProperty ;
+           rdf:type owl:FunctionalProperty ;
            rdfs:domain <http://xmlns.com/foaf/0.1/Person> .
 
 
 ###  http://semantics.id/ns/example/movie#hasName
 :hasName rdf:type owl:DatatypeProperty ;
-         rdfs:domain :Movie ,
+         rdfs:subPropertyOf owl:topDataProperty ;
+         rdfs:domain :FilmStudio ,
+                     :Genre ,
+                     :Movie ,
                      <http://xmlns.com/foaf/0.1/Person> ;
          rdfs:range xsd:string .
 
@@ -161,30 +175,35 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://semantics.id/ns/example/movie#hasReleaseDate
 :hasReleaseDate rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf owl:topDataProperty ;
                 rdfs:domain :Movie ;
                 rdfs:range xsd:date .
 
 
 ###  http://semantics.id/ns/example/movie#hasSpokenLanguage
 :hasSpokenLanguage rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf owl:topDataProperty ;
                    rdfs:domain :Movie ;
                    rdfs:range xsd:string .
 
 
 ###  http://semantics.id/ns/example/movie#hasWikidataLink
 :hasWikidataLink rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf owl:topDataProperty ;
                  rdfs:domain :Movie ;
                  rdfs:range xsd:anyURI .
 
 
 ###  http://semantics.id/ns/example/movie#homepage
 :homepage rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf owl:topDataProperty ;
           rdfs:domain :Movie ;
           rdfs:range xsd:anyURI .
 
 
 ###  http://semantics.id/ns/example/movie#id
 :id rdf:type owl:DatatypeProperty ;
+    rdfs:subPropertyOf owl:topDataProperty ;
     rdfs:domain :FilmStudio ,
                 :Genre ,
                 :IMDBResource ,
@@ -194,6 +213,7 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://semantics.id/ns/example/movie#isAdultMovie
 :isAdultMovie rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf owl:topDataProperty ;
               rdfs:domain :Movie ;
               rdfs:range xsd:boolean .
 
@@ -207,18 +227,21 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://semantics.id/ns/example/movie#originalTitle
 :originalTitle rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf owl:topDataProperty ;
                rdfs:domain :Movie ;
                rdfs:range xsd:string .
 
 
 ###  http://semantics.id/ns/example/movie#revenue
 :revenue rdf:type owl:DatatypeProperty ;
+         owl:equivalentProperty owl:topDataProperty ;
          rdfs:domain :Movie ;
          rdfs:range xsd:int .
 
 
 ###  http://semantics.id/ns/example/movie#runtime
 :runtime rdf:type owl:DatatypeProperty ;
+         rdfs:subPropertyOf owl:topDataProperty ;
          rdfs:domain :Movie ;
          rdfs:range xsd:int .
 
@@ -246,9 +269,12 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://semantics.id/ns/example/movie#vote_count
 :vote_count rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf owl:topDataProperty ;
             rdfs:domain :IMDBResource ;
             rdfs:range xsd:int .
 
+
+###  http://www.w3.org/2002/07/owl#topDataProperty
 
 #################################################################
 #    Classes

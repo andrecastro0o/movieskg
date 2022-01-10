@@ -26,7 +26,7 @@ To Add Classes & domain propos:
 
 Propos for Existing classes 
 
-### data source structures
+## data sources structures
 **1000_movies_metadata.csv**
 * adult
 * budget
@@ -131,7 +131,7 @@ Example:
       "credit_id": "52fe4284c3a36847f8024f49",
       "department": "Directing",
       "gender": 2,
-      "id": 7879,
+      "id": 7879,:hasName
       "job": "Director",
       "name": "John Lasseter",
       "profile_path": "/7EdqiNbr4FRjIhKHyPPdFfEEEFG.jpg"
@@ -211,7 +211,12 @@ arq --data=movie.ttl --query=queries/all_data_props.rq
 | :hasName            | foaf:Person | <http://www.w3.org/2001/XMLSchema#string> |
 ---------------------------------------------------------------------------------
 ```
-
+# TODO:
+- [ ] Cardinality: remove / update cardinality on Movie domain properties
+* [ ] remove named individuals of class 
+    * [ ] :Genre (they miss Genre id property)
+    * [ ] :FilmStudio (they miss Genre id property)
+* [ ] (remove unused props foaf:knows :friendOf)
 # Assignment
 ## Semantization of CSV, JSON
 
