@@ -26,31 +26,31 @@ To Add Classes & domain propos:
 
 Propos for Existing classes 
 
-## data sources structures
+## data sources structures - mapped to properties
 **1000_movies_metadata.csv**
-* adult
-* budget
-* homepage
-* id
-* imdb_id
+* adult - Movie: isAdultMovie (boolean)
+* budget - Movie: budget (integer)
+* homepage - Movie homepage (url)
+* id  - Movie: id (String) - Movie URI
+* imdb_id - hasIMDBResource (IMDBResource) **Transform**  
 * original_language
 * original_title
-* overview
+* overview - Movie: description (String)
 * popularity
 * poster_path
-* release_date
-* revenue
-* runtime
+* release_date - Movie: hasReleaseDate (Date)
+* revenue - Movie: revenue (integer)
+* runtime - Movie: runtime (integer)
 * status
-* tagline
-* title
+* tagline - Movie: tagline (String)
+* title - Movie: hasName (String)
 * video
-* vote_average
-* vote_count
+* vote_average - IMDBResource: vote_average (float)
+* vote_count - IMDBResource: - vote_count (integer)
 
 **1000_keywords.csv**
-* id
-* keywords
+* id - Movie URI
+* keywords - Movie: keyword (String) (transform: split)
 
 Example: 
 * col1: `862`	
@@ -58,15 +58,28 @@ Example:
 
 **1000_links.csv**
 * movieId
-* imdbId
-* imdb_url
-* id
+* imdbId - IMDBResource: id (String)
+* imdb_url -IMDBResource: url (String)
+* id - use for linking from Movie instance URI
 
 Example:
 `1,0114709,https://www.imdb.com/title/tt0114709,862`
 
 **1000_movies_metadata.json**
-* all parent keys: ['genres', 'id', 'imdb_id', 'original_title', 'production_companies', 'production_countries', 'spoken_languages']
+
+all parent keys: ['genres', 'id', 'imdb_id', 'original_title', 'production_companies', 'production_countries', 'spoken_languages']
+
+* genres
+    * id - Genre: id (Integer)
+    * name - Genre: hasName (String)
+* id - use for linking from Movie instance URI
+* imdb_id
+* original_title 
+* production_companies
+    * name - FilmStudio: hasName (String)
+    * id - FilmStudio: id (Integer)
+* production_countries - Movie: hasProductionCountry (String)
+* spoken_languages - Movie: hasSpokenLanguage (String)
 
 ```json
 {
@@ -109,7 +122,26 @@ Example:
 ```
 
 **1000_credits.json**
-* ['cast', 'crew', 'id']
+
+['cast', 'crew', 'id']
+
+* cast
+    * cast_id  - Cast: URI
+    * character - Cast: hasCastCharacter (String)
+    * credit_id 
+    * gender - Actor: hasGender (string) transform gender: 0==unknown,1==female, 2==male (gender: unsure if it refers to character or actor) 
+    * id  - Actor: URI +  Cast: hasCastActor(Actor)
+    * name - Actor: hasName (string)
+* crew
+    * credit_id "52fe4284c3a36847f8024f49",
+    * department  "Directing",
+    * gender  - hasGenre
+    * id  MovieDirector URI / Writer URI
+    * job 
+        * if "Director" -> MovieDirector
+        * if "Writer" -> Writer
+    * name
+* id - use for linking from Movie instance URI
 
 ```json
 {
