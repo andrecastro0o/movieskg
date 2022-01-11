@@ -259,16 +259,15 @@ arq --data=movie.ttl --query=queries/all_data_props.rq
 * ontology design
     * ouput: [movie.ttl](./movie.ttl) 
 * RDFize the CSV and JSON files
-    * used: rmlio/yarrrml-parser, rmlio/rmlmapper-java, [scripts/split_keywords.py](.scripts/split_keywords.py) python script to split keywords string into individual keys
+    * used: rmlio/yarrrml-parser, rmlio/rmlmapper-java, [scripts/fix_csv.py](.scripts/fix_csv.py)  script to:
+        * prevent corrupted entries in `1000_movies_metadata.csv` for making into graph
+        * split keywords string from `1000_keywords.csv` into individual keys
     * mapping file: [data/movie_map.yarrr.yml](./data/movie_map.yarrr.yml)
     * ran by [run_mapping.sh](./run_mapping.sh) `./run_mapping.sh`
     * output graph: `data/output/all.ttl` (not git tracked)
 
 
-# TODO:
-- [ ] Cardinality: remove / update cardinality on Movie domain properties
-* [ ] remove named individuals of class 
-    * [ ] :Genre (they miss Genre id property)
+# TODO:1000_keywords.csvty)
     * [ ] :FilmStudio (they miss Genre id property)
 * [ ] (remove unused props foaf:knows :friendOf)
 
@@ -276,7 +275,8 @@ arq --data=movie.ttl --query=queries/all_data_props.rq
 * check mo:hasReleaseDate value format
 
 # Bugs:
-* issue in mapping mo:hasWriter values to mo:Writer. RML is only performing it once
+* in mapping mo:hasWriter values to mo:Writer. RML is only performing it once
+
 
 # Assignment
 ## Semantization of CSV, JSON

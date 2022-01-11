@@ -50,7 +50,7 @@ mappings:
       - p: mo:runtime
         o: 
           v: $(runtime) 
-          datatype: xsd:integer
+          datatype: xsd:float  # bug! converts to float: xsd:integer -> "96.0"^^xsd:integer;
       - p: mo:tagline
         o: 
           v: $(tagline) 
@@ -61,7 +61,7 @@ mappings:
           datatype: xsd:string
 
   MovieKeywords:
-    # scripts/split_keywords.py preprocesses cleaning 1000_keywords.csv
+    # scripts/fix_csv.py preprocesses cleaning 1000_keywords.csv
     sources:
       - [fixed_1000_keywords.csv~csv]
     s: ex:movie_$(id)
