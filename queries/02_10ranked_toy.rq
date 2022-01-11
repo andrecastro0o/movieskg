@@ -1,0 +1,23 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX mo: <http://semantics.id/ns/example/movie#>
+
+# 10 top-ranked movies (by vote_average) 
+# with keyword "toy" 
+# that had at least 100 votes (vote_count)
+
+SELECT DISTINCT ?movie_name ?vote_count ?vote_avg
+WHERE  {
+
+    ?movie a mo:Movie;
+           mo:keyword ?kw ;
+           mo:hasName ?movie_name ; 
+           mo:hasIMDBResource ?imdb .
+    FILTER CONTAINS(LCASE(?kw), "toy")
+
+    ?imdb mo:vote_count ?vote_count ;
+          mo:vote_average ?vote_avg .
+
+    FILTER( ?vote_count >= 100)
+}
+ORDER BY DESC(?vote_avg)
+LIMIT 10

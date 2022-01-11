@@ -50,7 +50,7 @@ mappings:
       - p: mo:runtime
         o: 
           v: $(runtime) 
-          datatype: xsd:float  # bug! converts to float: xsd:integer -> "96.0"^^xsd:integer;
+          datatype: xsd:float  # bug! using float cause RML this value to float; converts to float: xsd:integer -> "96.0"^^xsd:integer;
       - p: mo:tagline
         o: 
           v: $(tagline) 
