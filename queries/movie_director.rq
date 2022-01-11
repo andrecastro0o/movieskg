@@ -6,10 +6,16 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX mo: <http://semantics.id/ns/example/movie#>
 PREFIX ex: <http://semantics.id/ns/example#>
 
-SELECT count(*)
+SELECT *
+#count(?s)
 WHERE  {
-    ?s a mo:FilmStudio ;
-       mo:id ?id ;
-    #    mo:hasName ?name .
+    ?s a mo:Movie ;
+       mo:hasWriter ?dir ;  
+    #    mo:hasName ?mName .
+    # ?dir mo:hasName ?dName
+    # ?s a mo:MovieDirector     
 }
-ORDER BY ?s
+
+
+ORDER BY ?dir
+LIMIT 100

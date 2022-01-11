@@ -160,7 +160,6 @@ mappings:
       - [1000_credits.json~jsonpath, "$[*]"]
     s: ex:movie_$(id)
     po:
-      - [a, mo:Movie]
       - p: mo:hasCast
         o:
           v: ex:cast_$(.cast[*].credit_id)
@@ -217,10 +216,9 @@ mappings:
       - [1000_credits.json~jsonpath, "$[*]"]
     s: ex:movie_$(id)    
     po:
-      - [a, mo:Movie]
       - p: mo:hasMovieDirector
         o:
-          v: ex:director_$(.crew[*].name)
+          v: ex:director_$(.crew[*].id)
           type: iri
         condition:
           function: equal
@@ -229,40 +227,31 @@ mappings:
               - str1
               - $(.crew[*].job)
             - [str2, "Director"]
+
+  # BUG HERE:
+  # only one hasWriter statement is written to graph
+  Movie_hasWriter:
+    sources:
+      - [1000_credits.json~jsonpath, "$[*]"]
+    s: ex:movie_$(id)    
+    po:    
       - p: mo:hasWriter
         o:
-          v: ex:writer_$(.crew[*].name)_$(.crew[*].job)
+          v: ex:writer_$(.crew[*].id)
           type: iri
         condition:
-            function: equal
-            parameters:
-              - 
-                - str1
-                - $(.crew[*].job)
-              - [str2, "Writer"]  
-
-  # Movie_hasWriter:
-  #   sources:
-  #     - [1000_credits.json~jsonpath, "$[*]"]
-  #   s: ex:movie_$(id)    
-  #   po:
-  #     - [a, mo:Movie]            
-  #     - p: mo:hasWriter
-  #       o:
-  #         v: ex:writer_$(.crew[*].name)_$(.crew[*].job)
-  #         type: iri
-  #         condition:
-  #           function: equal
-  #           parameters:
-  #             - 
-  #               - str1
-  #               - $(.crew[*].job)
-  #             - [str2, "Writer"]  
+          function: equal
+          parameters:
+            - 
+              - str1
+              - $(.crew[*].job)
+            - [str2, "Writer"]  
+  ## END OF BUG
 
   Director:
     sources:
       - [1000_credits.json~jsonpath, "$[*].crew[*]"]
-    s: ex:director_$(.name)
+    s: ex:director_$(.id)
     condition:
       function: equal
       parameters:
@@ -275,7 +264,7 @@ mappings:
   Writer:
     sources:
       - [1000_credits.json~jsonpath, "$[*].crew[*]"]
-    s: ex:writer_$(.name)
+    s: ex:writer_$(.id)
     condition:
       function: equal
       parameters:
