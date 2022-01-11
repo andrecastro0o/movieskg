@@ -176,13 +176,13 @@ mappings:
           v: $(.character)
       - p: mo:hasActor 
         o:
-          v: ex:actor_$(.name)
+          v: ex:actor_$(.id)
           type: iri
 
   Actor:
     sources:
       - [1000_credits.json~jsonpath, "$[*].cast[*]"]
-    s: ex:actor_$(.name)
+    s: ex:actor_$(.id)
     po:
       - [a, mo:Actor]
       - p: mo:hasName
