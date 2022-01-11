@@ -255,6 +255,17 @@ arq --data=movie.ttl --query=queries/all_data_props.rq
 | :hasName            | foaf:Person | <http://www.w3.org/2001/XMLSchema#string> |
 ---------------------------------------------------------------------------------
 ```
+
+
+----
+
+# Dependencies
+* GraphDB: 
+    * running on port 7200 
+    * **with a empty repository name *movies***
+* python3 
+* Docker
+
 # Process
 * ontology design
     * ouput: [movie.ttl](./movie.ttl) 
@@ -265,7 +276,80 @@ arq --data=movie.ttl --query=queries/all_data_props.rq
     * mapping file: [data/movie_map.yarrr.yml](./data/movie_map.yarrr.yml)
     * ran by [run_mapping.sh](./run_mapping.sh) `./run_mapping.sh`
     * output graph: `data/output/all.ttl` (not git tracked)
+* in GraphDB workbench create the repository `movies` 
+* import resulting dataset [data/output/all.ttl](./data/output/all.ttl) to GraphDB repository `movies`
 
+
+## SPARQL queries:
+
+*All actors who played in movies with keyword "toy". Output actor name, movie name, character name*
+* query file: [queries/01_movie_kw_toy.rq](./queries/01_movie_kw_toy.rq)
+* query to GraphDB REST API - SPARQL endpoint: [queries/01_api_query.sh](./queries/01_api_query.sh)
+
+Results:
+```
+----------------------------------------------------------------------------------------------
+| movie_name    | actor_name          | character_name                                       |
+==============================================================================================
+| "Toy Story"   | "Annie Potts"       | "Bo Peep (voice)"                                    |
+| "Toy Story"   | "Don Rickles"       | "Mr. Potato Head (voice)"                            |
+| "Toy Story"   | "Erik von Detten"   | "Sid (voice)"                                        |
+| "Toy Story"   | "Jim Varney"        | "Slinky Dog (voice)"                                 |
+| "Toy Story"   | "John Morris"       | "Andy (voice)"                                       |
+| "Toy Story"   | "John Ratzenberger" | "Hamm (voice)"                                       |
+| "Toy Story"   | "Laurie Metcalf"    | "Mrs. Davis (voice)"                                 |
+| "Toy Story"   | "Penn Jillette"     | "TV Announcer (voice)"                               |
+| "Toy Story"   | "R. Lee Ermey"      | "Sergeant (voice)"                                   |
+| "Toy Story"   | "Sarah Freeman"     | "Hannah (voice)"                                     |
+| "Toy Story"   | "Tim Allen"         | "Buzz Lightyear (voice)"                             |
+| "Toy Story"   | "Tom Hanks"         | "Woody (voice)"                                      |
+| "Toy Story"   | "Wallace Shawn"     | "Rex (voice)"                                        |
+| "Toy Story 2" | "Andrew Stanton"    | "Emperor Zurg (voice)"                               |
+| "Toy Story 2" | "Annie Potts"       | "Bo Peep (voice)"                                    |
+| "Toy Story 2" | "Corey Burton"      | "Woody's Roundup Announcer (voice)"                  |
+| "Toy Story 2" | "Don Rickles"       | "Mr. Potato Head (voice)"                            |
+| "Toy Story 2" | "Estelle Harris"    | "Mrs. Potato Head (voice)"                           |
+| "Toy Story 2" | "Jeff Pidgeon"      | "Aliens (voice)"                                     |
+| "Toy Story 2" | "Jim Varney"        | "Slinky Dog (voice)"                                 |
+| "Toy Story 2" | "Joan Cusack"       | "Jessie (voice)"                                     |
+| "Toy Story 2" | "Jodi Benson"       | "Barbie (voice)"                                     |
+| "Toy Story 2" | "Joe Ranft"         | "Wheezy (voice)"                                     |
+| "Toy Story 2" | "John Lasseter"     | "Blue Rock 'Em Sock 'Em Robot (voice)"               |
+| "Toy Story 2" | "John Morris"       | "Andy (voice)"                                       |
+| "Toy Story 2" | "John Ratzenberger" | "Hamm (voice)"                                       |
+| "Toy Story 2" | "Jonathan Harris"   | "The Cleaner (voice)"                                |
+| "Toy Story 2" | "Kelsey Grammer"    | "Prospector (voice)"                                 |
+| "Toy Story 2" | "Laurie Metcalf"    | "Andy's Mom (voice)"                                 |
+| "Toy Story 2" | "Lee Unkrich"       | "Red Rock 'Em Sock 'Em Robot (voice)"                |
+| "Toy Story 2" | "Mickie McGowan"    | "Mom at yard sale (voice)"                           |
+| "Toy Story 2" | "Phil Proctor"      | "Airline Rep / sign-off voice / Mr. Konishi (voice)" |
+| "Toy Story 2" | "R. Lee Ermey"      | "Sarge (voice)"                                      |
+| "Toy Story 2" | "Tim Allen"         | "Buzz Lightyear (voice)"                             |
+| "Toy Story 2" | "Tom Hanks"         | "Woody (voice)"                                      |
+| "Toy Story 2" | "Wallace Shawn"     | "Rex (voice)"                                        |
+| "Toy Story 2" | "Wayne Knight"      | "Al McWhiggin (voice)"                               |
+----------------------------------------------------------------------------------------------
+```
+
+
+* 10 top-ranked movies (by vote_average) with keyword "toy" that had at least 100 votes (vote_count)
+* query file: [queries/02_10ranked_toy.rq](./queries/02_10ranked_toy.rq)
+* query to GraphDB REST API - SPARQL endpoint: [queries/02_api_query.sh](./queries/02_api_query.sh)
+
+Results:
+```
+-------------------------------------------------
+| movie_name    | vote_count | vote_avg         |
+=================================================
+| "Toy Story"   | 5415       | "7.7"^^xsd:float |
+| "Toy Story 2" | 3914       | "7.3"^^xsd:float |
+-------------------------------------------------
+``` 
+
+
+http://2b1ca202ba76:7200/repositories/movies
+
+http://localhost:7200/sparql?name=&infer=true&sameAs=true&query=PREFIX%20xsd%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E%0APREFIX%20mo%3A%20%3Chttp%3A%2F%2Fsemantics.id%2Fns%2Fexample%2Fmovie%23%3E%0A%0A%23%2010%20top-ranked%20movies%20(by%20vote_average)%20%0A%23%20with%20keyword%20%22toy%22%20%0A%23%20that%20had%20at%20least%20100%20votes%20(vote_count)%0A%0ASELECT%20DISTINCT%20%3Fmovie_name%20%3Fvote_count%20%3Fvote_avg%0AWHERE%20%20%7B%0A%0A%20%20%20%20%3Fmovie%20a%20mo%3AMovie%3B%0A%20%20%20%20%20%20%20%20%20%20%20mo%3Akeyword%20%3Fkw%20%3B%0A%20%20%20%20%20%20%20%20%20%20%20mo%3AhasName%20%3Fmovie_name%20%3B%20%0A%20%20%20%20%20%20%20%20%20%20%20mo%3AhasIMDBResource%20%3Fimdb%20.%0A%20%20%20%20FILTER%20CONTAINS(LCASE(%3Fkw)%2C%20%22toy%22)%0A%0A%20%20%20%20%3Fimdb%20mo%3Avote_count%20%3Fvote_count%20%3B%0A%20%20%20%20%20%20%20%20%20%20mo%3Avote_average%20%3Fvote_avg%20.%0A%0A%20%20%20%20FILTER(%20%3Fvote_count%20%3E%3D%20100)%0A%7D%0AORDER%20BY%20DESC(%3Fvote_avg)%0ALIMIT%2010
 
 # TODO:1000_keywords.csvty)
     * [ ] :FilmStudio (they miss Genre id property)
