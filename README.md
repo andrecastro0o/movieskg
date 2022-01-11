@@ -267,14 +267,16 @@ arq --data=movie.ttl --query=queries/all_data_props.rq
 * Docker
 
 # Process
-* ontology design
-    * ouput: [movie.ttl](./movie.ttl) 
-* RDFize the CSV and JSON files
-    * used: rmlio/yarrrml-parser, rmlio/rmlmapper-java, [scripts/fix_csv.py](.scripts/fix_csv.py)  script to:
+
+* ontology expansion
+    * ouput: [movie.ttl](./movie.ttl)
+* Data files (json, csv) added to [data](./data) directory
+* RDFize the CSV and JSON files with [run_mapping.sh](./run_mapping.sh) `./run_mapping.sh`
+    * uses: rmlio/yarrrml-parser, rmlio/rmlmapper-java, 
+    * uses: [scripts/fix_csv.py](.scripts/fix_csv.py)  script to:
         * prevent corrupted entries in `1000_movies_metadata.csv` for making into graph
         * split keywords string from `1000_keywords.csv` into individual keys
     * mapping file: [data/movie_map.yarrr.yml](./data/movie_map.yarrr.yml)
-    * ran by [run_mapping.sh](./run_mapping.sh) `./run_mapping.sh`
     * output graph: `data/output/all.ttl` (not git tracked)
 * in GraphDB workbench create the repository `movies` 
 * import resulting dataset [data/output/all.ttl](./data/output/all.ttl) to GraphDB repository `movies`
@@ -346,10 +348,6 @@ Results:
 -------------------------------------------------
 ``` 
 
-
-http://2b1ca202ba76:7200/repositories/movies
-
-http://localhost:7200/sparql?name=&infer=true&sameAs=true&query=PREFIX%20xsd%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E%0APREFIX%20mo%3A%20%3Chttp%3A%2F%2Fsemantics.id%2Fns%2Fexample%2Fmovie%23%3E%0A%0A%23%2010%20top-ranked%20movies%20(by%20vote_average)%20%0A%23%20with%20keyword%20%22toy%22%20%0A%23%20that%20had%20at%20least%20100%20votes%20(vote_count)%0A%0ASELECT%20DISTINCT%20%3Fmovie_name%20%3Fvote_count%20%3Fvote_avg%0AWHERE%20%20%7B%0A%0A%20%20%20%20%3Fmovie%20a%20mo%3AMovie%3B%0A%20%20%20%20%20%20%20%20%20%20%20mo%3Akeyword%20%3Fkw%20%3B%0A%20%20%20%20%20%20%20%20%20%20%20mo%3AhasName%20%3Fmovie_name%20%3B%20%0A%20%20%20%20%20%20%20%20%20%20%20mo%3AhasIMDBResource%20%3Fimdb%20.%0A%20%20%20%20FILTER%20CONTAINS(LCASE(%3Fkw)%2C%20%22toy%22)%0A%0A%20%20%20%20%3Fimdb%20mo%3Avote_count%20%3Fvote_count%20%3B%0A%20%20%20%20%20%20%20%20%20%20mo%3Avote_average%20%3Fvote_avg%20.%0A%0A%20%20%20%20FILTER(%20%3Fvote_count%20%3E%3D%20100)%0A%7D%0AORDER%20BY%20DESC(%3Fvote_avg)%0ALIMIT%2010
 
 # TODO:1000_keywords.csvty)
     * [ ] :FilmStudio (they miss Genre id property)
