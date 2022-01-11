@@ -3,12 +3,12 @@ prefixes:
   ex: http://semantics.id/ns/example#
   grel: http://users.ugent.be/~bjdmeest/function/grel.ttl# 
   schema: http://schema.org/
-  xsd: http://www.w3.org/2001/XMLSchema/
+  xsd: http://www.w3.org/2001/XMLSchema#
 
 mappings:
   Movie:
     sources:
-      - [1000_movies_metadata.csv~csv]
+      - [fixed_1000_movies_metadata.csv~csv]
     s: ex:movie_$(id)
     po:
       - [a, mo:Movie]
@@ -89,7 +89,7 @@ mappings:
 # mo:id (todo) or mo:url 
   IMDBResource_vote:  
     sources:
-      - [1000_movies_metadata.csv~csv]
+      - [fixed_1000_movies_metadata.csv~csv]
     s: ex:imdbresource_$(imdb_id)
     po: 
       - [a, mo:IMDBResource]

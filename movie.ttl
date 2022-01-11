@@ -238,14 +238,14 @@ mo:originalTitle rdf:type owl:DatatypeProperty ;
 mo:revenue rdf:type owl:DatatypeProperty ;
            owl:equivalentProperty owl:topDataProperty ;
            rdfs:domain mo:Movie ;
-           rdfs:range xsd:int .
+           rdfs:range xsd:integer .
 
 
 ###  http://semantics.id/ns/example/movie#runtime
 mo:runtime rdf:type owl:DatatypeProperty ;
            rdfs:subPropertyOf owl:topDataProperty ;
            rdfs:domain mo:Movie ;
-           rdfs:range xsd:int .
+           rdfs:range xsd:integer .
 
 
 ###  http://semantics.id/ns/example/movie#tagline
@@ -273,7 +273,7 @@ mo:vote_average rdf:type owl:DatatypeProperty ;
 mo:vote_count rdf:type owl:DatatypeProperty ;
               rdfs:subPropertyOf owl:topDataProperty ;
               rdfs:domain mo:IMDBResource ;
-              rdfs:range xsd:int .
+              rdfs:range xsd:integer .
 
 
 ###  http://www.w3.org/2002/07/owl#topDataProperty

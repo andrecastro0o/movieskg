@@ -9,4 +9,4 @@ docker run --rm -it -v $(pwd)/data:/data rmlio/yarrrml-parser:latest  -i /data/m
 docker run --rm -v $(pwd)/data/:/data/ rmlio/rmlmapper-java -m /data/tmp/movie_map.yarrr.ttl -s turtle -o /data/output/all.ttl
 
 # garbage collection
-rm data/fixed_1000_keywords.csv
+rm data/fixed_*.csv

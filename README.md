@@ -128,9 +128,9 @@ all parent keys: ['genres', 'id', 'imdb_id', 'original_title', 'production_compa
     * cast_id  
     * character - Cast: hasCastCharacter (String) - DONE
     * credit_id - Cast: URI - DONE
-    * gender - Actor: hasGender (string) transform gender: 0==unknown,1==female, 2==male (gender: unsure if it refers to character or actor) 
-    * id  - Actor: URI +  Cast: hasCastActor(Actor)
-    * name - Actor: hasName (string)
+    * gender - Actor: hasGender (string) transform gender: 0==unknown,1==female, 2==male - DONE(gender: unsure if it refers to character or actor) 
+    * id  +  Cast: hasCastActor(Actor)
+    * name - Actor: URI 
 * crew
     * credit_id "52fe4284c3a36847f8024f49",
     * department  "Directing",
@@ -255,6 +255,16 @@ arq --data=movie.ttl --query=queries/all_data_props.rq
 | :hasName            | foaf:Person | <http://www.w3.org/2001/XMLSchema#string> |
 ---------------------------------------------------------------------------------
 ```
+# Process
+* ontology design
+    * ouput: [movie.ttl](./movie.ttl) 
+* RDFize the CSV and JSON files
+    * used: rmlio/yarrrml-parser, rmlio/rmlmapper-java, [scripts/split_keywords.py](.scripts/split_keywords.py) python script to split keywords string into individual keys
+    * mapping file: [data/movie_map.yarrr.yml](./data/movie_map.yarrr.yml)
+    * ran by [run_mapping.sh](./run_mapping.sh) `./run_mapping.sh`
+    * output graph: `data/output/all.ttl` (not git tracked)
+
+
 # TODO:
 - [ ] Cardinality: remove / update cardinality on Movie domain properties
 * [ ] remove named individuals of class 
@@ -264,6 +274,10 @@ arq --data=movie.ttl --query=queries/all_data_props.rq
 
 
 * check mo:hasReleaseDate value format
+
+# Bugs:
+* issue in mapping mo:hasWriter values to mo:Writer. RML is only performing it once
+
 # Assignment
 ## Semantization of CSV, JSON
 
