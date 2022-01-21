@@ -14,6 +14,4 @@ WHERE  {
           mo:hasCastCharacter ?character_name .
     ?actor mo:hasName ?actor_name .
 }
-ORDER BY ?movie_name
-
-
+# ORDER BY ?movie_name
