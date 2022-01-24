@@ -1,2 +1,6 @@
 #!/bin/sh
-curl -X GET --header 'Accept: application/sparql-results+json' 'http://localhost:7200/repositories/movies?query=PREFIX%20xsd%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E%20PREFIX%20mo%3A%20%3Chttp%3A%2F%2Fsemantics.id%2Fns%2Fexample%2Fmovie%23%3E%20SELECT%20DISTINCT%20%3Fmovie_name%20%3Fvote_count%20%3Fvote_avg%20WHERE%20%20%7B%20%20%20%20%20%20%20%20%20%3Fmovie%20a%20mo%3AMovie%3B%20%20%20%20%20%20%20%20%20%20%20%20mo%3Akeyword%20%3Fkw%20%3B%20%20%20%20%20%20%20%20%20%20%20%20mo%3AhasName%20%3Fmovie_name%20%3B%20%20%20%20%20%20%20%20%20%20%20%20%20mo%3AhasIMDBResource%20%3Fimdb%20.%20%20%20%20%20FILTER%20CONTAINS(LCASE(%3Fkw)%2C%20%22toy%22)%20%20%20%20%20%3Fimdb%20mo%3Avote_count%20%3Fvote_count%20%3B%20%20%20%20%20%20%20%20%20%20%20mo%3Avote_average%20%3Fvote_avg%20.%20%20%20%20%20FILTER(%20%3Fvote_count%20%3E%3D%20100)%20%7D%20ORDER%20BY%20DESC(%3Fvote_avg)%20LIMIT%2010'
+curl \
+-s \
+--header 'Accept: application/sparql-results+json' \
+-G http://localhost:7200/repositories/movies \
+--data-urlencode "query@queries/02_10ranked_toy.rq"

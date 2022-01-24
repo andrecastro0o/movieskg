@@ -1,2 +1,20 @@
 #!/bin/sh
-curl -X GET --header 'Accept: application/sparql-results+json' 'http://localhost:7200/repositories/movies?query=PREFIX%20xsd%3A%20%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E%20PREFIX%20mo%3A%20%3Chttp%3A%2F%2Fsemantics.id%2Fns%2Fexample%2Fmovie%23%3E%20SELECT%20DISTINCT%20%3Fmovie_name%20%20%3Factor_name%20%3Fcharacter_name%20%20WHERE%20%20%7B%20%20%20%20%20%20%3Fmovie%20a%20mo%3AMovie%3B%20%20%20%20%20%20%20%20%20%20%20%20mo%3Akeyword%20%3Fkw%20%3B%20%20%20%20%20%20%20%20%20%20%20%20mo%3AhasName%20%3Fmovie_name.%20%20%20%20%20FILTER%20CONTAINS(LCASE(%3Fkw)%2C%20%22toy%22)%20%20%20%20%20%20%3Fmovie%20mo%3AhasCast%20%3Fcast.%20%20%20%20%20%3Fcast%20mo%3AhasActor%20%3Factor%20%3B%20%20%20%20%20%20%20%20%20%20%20mo%3AhasCastCharacter%20%3Fcharacter_name%20.%20%20%20%20%20%20%20%20%20%20%3Factor%20mo%3AhasName%20%3Factor_name%20.%20%7D%20ORDER%20BY%20%3Fmovie_name'
+curl \
+-s \
+--header 'Accept: application/sparql-results+json' \
+-G http://localhost:7200/repositories/movies \
+--data-urlencode "query@queries/01_movie_kw_toy.rq"
+
+# -G = get
+
+# See Swagger Documentation  in http://localhost:7200/webapi
+## possible headers:
+### --header 'Accept: application/sparql-results+json'
+### --header 'Accept: application/sparql-results+xml'
+### Accept: application/x-binary-rdf-results-table' > requeires --output
+
+# can also be done using apache jena rsparl cmdline tool
+#rsparql --service=http://localhost:7200/repositories/movies --query=01_movie_kw_toy.rq 
+
+# json output can be pipped to jq
+# ./queries/01_api_query.sh | jq '.[].bindings[0]'
