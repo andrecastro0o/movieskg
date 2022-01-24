@@ -9,15 +9,12 @@ SELECT DISTINCT ?movie_name ?vote_count ?vote_avg
 WHERE  {
 
     ?movie a mo:Movie;
-           mo:keyword ?kw ;
+           mo:keyword "toy" ;
            mo:hasName ?movie_name ; 
-           mo:hasIMDBResource ?imdb .
-    FILTER CONTAINS(LCASE(?kw), "toy")
-
-    ?imdb mo:vote_count ?vote_count ;
-          mo:vote_average ?vote_avg .
-
-    FILTER( ?vote_count >= 100)
+           mo:hasIMDBResource [
+                mo:vote_count ?vote_count ;
+                mo:vote_average ?vote_avg ] .
+    # FILTER( ?vote_count >= 100)
 }
-ORDER BY DESC(?vote_avg)
-LIMIT 10
+# ORDER BY DESC(?vote_avg)
+# LIMIT 10
