@@ -5,16 +5,15 @@ PREFIX mo: <http://semantics.id/ns/example/movie#>
 # with keyword "toy" 
 # that had at least 100 votes (vote_count)
 
-SELECT DISTINCT ?movie_name ?vote_count ?vote_avg
+SELECT *
 WHERE  {
-
     ?movie a mo:Movie;
            mo:keyword "toy" ;
            mo:hasName ?movie_name ; 
            mo:hasIMDBResource [
                 mo:vote_count ?vote_count ;
                 mo:vote_average ?vote_avg ] .
-    # FILTER( ?vote_count >= 100)
+    FILTER( ?vote_count >= 100)
 }
-# ORDER BY DESC(?vote_avg)
-# LIMIT 10
+ORDER BY DESC(?vote_avg)
+LIMIT 10
