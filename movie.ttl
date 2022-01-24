@@ -7,6 +7,7 @@
 @prefix www: <http://www.movieontology.org/2009/11/09/> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix obda: <https://w3id.org/obda/vocabulary#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl2xml: <http://www.w3.org/2006/12/owl2-xml#> .
@@ -38,19 +39,21 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://semantics.id/ns/example/movie#friendOf
 mo:friendOf rdf:type owl:ObjectProperty ;
-            rdfs:subPropertyOf <http://xmlns.com/foaf/0.1/knows> ;
+            rdfs:subPropertyOf foaf:knows ;
             rdf:type owl:SymmetricProperty ;
-            rdfs:domain <http://xmlns.com/foaf/0.1/Person> ;
-            rdfs:range <http://xmlns.com/foaf/0.1/Person> .
+            rdfs:domain foaf:Person ;
+            rdfs:range foaf:Person .
 
 
 ###  http://semantics.id/ns/example/movie#hasActor
 mo:hasActor rdf:type owl:ObjectProperty ;
             rdfs:subPropertyOf owl:topObjectProperty ;
-            rdfs:domain mo:Cast ,
-                        mo:Movie ;
-            rdfs:range mo:Actor ;
-            owl:minCardinality 1 .
+            rdfs:domain [ rdf:type owl:Class ;
+                          owl:unionOf ( mo:Cast
+                                        mo:Movie
+                                      )
+                        ] ;
+            rdfs:range mo:Actor .
 
 
 ###  http://semantics.id/ns/example/movie#hasCast
@@ -64,7 +67,7 @@ mo:hasCast rdf:type owl:ObjectProperty ;
 mo:hasCrew rdf:type owl:ObjectProperty ;
            rdfs:subPropertyOf owl:topObjectProperty ;
            rdfs:domain mo:Movie ;
-           rdfs:range <http://xmlns.com/foaf/0.1/Person> .
+           rdfs:range foaf:Person .
 
 
 ###  http://semantics.id/ns/example/movie#hasFilmStudio
@@ -106,9 +109,9 @@ mo:hasWriter rdf:type owl:ObjectProperty ;
 
 
 ###  http://xmlns.com/foaf/0.1/knows
-<http://xmlns.com/foaf/0.1/knows> rdf:type owl:ObjectProperty ;
-                                  rdfs:domain <http://xmlns.com/foaf/0.1/Person> ;
-                                  rdfs:range <http://xmlns.com/foaf/0.1/Person> .
+foaf:knows rdf:type owl:ObjectProperty ;
+           rdfs:domain foaf:Person ;
+           rdfs:range foaf:Person .
 
 
 #################################################################
@@ -140,7 +143,7 @@ mo:hasCastCharacter rdf:type owl:DatatypeProperty ;
 mo:hasDateOfBirth rdf:type owl:DatatypeProperty ;
                   rdfs:subPropertyOf owl:topDataProperty ;
                   rdf:type owl:FunctionalProperty ;
-                  rdfs:domain <http://xmlns.com/foaf/0.1/Person> .
+                  rdfs:domain foaf:Person .
 
 
 ###  http://semantics.id/ns/example/movie#hasEstablishedDate
@@ -154,17 +157,20 @@ mo:hasEstablishedDate rdf:type owl:DatatypeProperty ;
 mo:hasGender rdf:type owl:DatatypeProperty ;
              rdfs:subPropertyOf owl:topDataProperty ;
              rdf:type owl:FunctionalProperty ;
-             rdfs:domain <http://xmlns.com/foaf/0.1/Person> ;
+             rdfs:domain foaf:Person ;
              rdfs:range xsd:string .
 
 
 ###  http://semantics.id/ns/example/movie#hasName
 mo:hasName rdf:type owl:DatatypeProperty ;
            rdfs:subPropertyOf owl:topDataProperty ;
-           rdfs:domain mo:FilmStudio ,
-                       mo:Genre ,
-                       mo:Movie ,
-                       <http://xmlns.com/foaf/0.1/Person> ;
+           rdfs:domain [ rdf:type owl:Class ;
+                         owl:unionOf ( mo:FilmStudio
+                                       mo:Genre
+                                       mo:Movie
+                                       foaf:Person
+                                     )
+                       ] ;
            rdfs:range xsd:string .
 
 
@@ -206,10 +212,13 @@ mo:homepage rdf:type owl:DatatypeProperty ;
 ###  http://semantics.id/ns/example/movie#id
 mo:id rdf:type owl:DatatypeProperty ;
       rdfs:subPropertyOf owl:topDataProperty ;
-      rdfs:domain mo:FilmStudio ,
-                  mo:Genre ,
-                  mo:IMDBResource ,
-                  mo:Movie ;
+      rdfs:domain [ rdf:type owl:Class ;
+                    owl:unionOf ( mo:FilmStudio
+                                  mo:Genre
+                                  mo:IMDBResource
+                                  mo:Movie
+                                )
+                  ] ;
       rdfs:range xsd:string .
 
 
@@ -284,7 +293,7 @@ mo:vote_count rdf:type owl:DatatypeProperty ;
 
 ###  http://semantics.id/ns/example/movie#Actor
 mo:Actor rdf:type owl:Class ;
-         rdfs:subClassOf <http://xmlns.com/foaf/0.1/Person> .
+         rdfs:subClassOf foaf:Person .
 
 
 ###  http://semantics.id/ns/example/movie#Cast
@@ -389,16 +398,16 @@ mo:Movie rdf:type owl:Class ;
 
 ###  http://semantics.id/ns/example/movie#MovieDirector
 mo:MovieDirector rdf:type owl:Class ;
-                 rdfs:subClassOf <http://xmlns.com/foaf/0.1/Person> .
+                 rdfs:subClassOf foaf:Person .
 
 
 ###  http://semantics.id/ns/example/movie#Writer
 mo:Writer rdf:type owl:Class ;
-          rdfs:subClassOf <http://xmlns.com/foaf/0.1/Person> .
+          rdfs:subClassOf foaf:Person .
 
 
 ###  http://xmlns.com/foaf/0.1/Person
-<http://xmlns.com/foaf/0.1/Person> rdf:type owl:Class .
+foaf:Person rdf:type owl:Class .
 
 
 #################################################################
