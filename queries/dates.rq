@@ -1,0 +1,17 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX mo: <http://semantics.id/ns/example/movie#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT *
+WHERE {
+    {?s mo:hasEstablishedDate ?hasEstablishedDate}
+UNION
+    {?s mo:hasDateOfBirth ?hasDateOfBirth}
+}
+
+# WHERE {?s mo:hasDateOfBirth ?hasDateOfBirth
+#         BIND(year(?hasDateOfBirth) AS ?year)
+#         BIND(now() AS ?now)
+#         BIND(tz(?now) as ?tz)
+
+#         FILTER(?hasDateOfBirth >= "1980-01-01"^^xsd:date)  # full date yyyy-mm-dd is required
+# }

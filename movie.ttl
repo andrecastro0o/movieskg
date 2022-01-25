@@ -138,19 +138,18 @@ mo:hasCastCharacter rdf:type owl:DatatypeProperty ;
 
 ###  http://semantics.id/ns/example/movie#hasDateOfBirth
 mo:hasDateOfBirth rdf:type owl:DatatypeProperty ;
-                  rdf:type owl:FunctionalProperty ;
-                  rdfs:domain foaf:Person .
+                  rdfs:domain foaf:Person ;
+                  rdfs:range xsd:date .
 
 
 ###  http://semantics.id/ns/example/movie#hasEstablishedDate
 mo:hasEstablishedDate rdf:type owl:DatatypeProperty ;
-                      rdf:type owl:FunctionalProperty ;
-                      rdfs:domain mo:FilmStudio .
+                      rdfs:domain mo:FilmStudio ;
+                      rdfs:range xsd:date .
 
 
 ###  http://semantics.id/ns/example/movie#hasGender
 mo:hasGender rdf:type owl:DatatypeProperty ;
-             rdf:type owl:FunctionalProperty ;
              rdfs:domain foaf:Person ;
              rdfs:range xsd:string .
 
@@ -390,21 +389,21 @@ foaf:Person rdf:type owl:Class .
 ###  http://semantics.id/ns/example#EntertainmentOne
 ex:EntertainmentOne rdf:type owl:NamedIndividual ,
                              mo:FilmStudio ;
-                    mo:hasEstablishedDate "1973-01-01" ;
+                    mo:hasEstablishedDate "1973-01-01"^^xsd:date ;
                     rdfs:label "Entertainment One" .
 
 
 ###  http://semantics.id/ns/example#MandevilleFilms
 ex:MandevilleFilms rdf:type owl:NamedIndividual ,
                             mo:FilmStudio ;
-                   mo:hasEstablishedDate "1955-01-01" ;
+                   mo:hasEstablishedDate "1955-01-01"^^xsd:date ;
                    rdfs:label "Mandeville Films" .
 
 
 ###  http://semantics.id/ns/example#WaltDisneyPictures
 ex:WaltDisneyPictures rdf:type owl:NamedIndividual ,
                                mo:FilmStudio ;
-                      mo:hasEstablishedDate "1985-06-21" ;
+                      mo:hasEstablishedDate "1985-06-21"^^xsd:date;
                       rdfs:label "Walt Disney Pictures" .
 
 
@@ -425,7 +424,7 @@ ex:bill_condon rdf:type owl:NamedIndividual ,
 ###  http://semantics.id/ns/example#dan_stevens
 ex:dan_stevens rdf:type owl:NamedIndividual ,
                         mo:Actor ;
-               mo:hasDateOfBirth "1982-10-10" ;
+               mo:hasDateOfBirth "1982-10-10"^^xsd:date ;
                mo:hasGender "male" ;
                mo:hasName "Dan Stevens" .
 
@@ -433,7 +432,7 @@ ex:dan_stevens rdf:type owl:NamedIndividual ,
 ###  http://semantics.id/ns/example#emma_watson
 ex:emma_watson rdf:type owl:NamedIndividual ,
                         mo:Actor ;
-               mo:hasDateOfBirth "1990-04-15" ;
+               mo:hasDateOfBirth "1990-04-15"^^xsd:date ;
                mo:hasGender "female" ;
                mo:hasName "Emma Watson" .
 
@@ -441,7 +440,7 @@ ex:emma_watson rdf:type owl:NamedIndividual ,
 ###  http://semantics.id/ns/example#ewan_mcgregor
 ex:ewan_mcgregor rdf:type owl:NamedIndividual ,
                           mo:Actor ;
-                 mo:hasDateOfBirth "1971-03-31" ;
+                 mo:hasDateOfBirth "1971-03-31"^^xsd:date ;
                  mo:hasGender "male" ;
                  mo:hasName "Ewan McGregor" .
 
@@ -449,7 +448,7 @@ ex:ewan_mcgregor rdf:type owl:NamedIndividual ,
 ###  http://semantics.id/ns/example#hayley_atwell
 ex:hayley_atwell rdf:type owl:NamedIndividual ,
                           mo:Actor ;
-                 mo:hasDateOfBirth "1982-04-05" ;
+                 mo:hasDateOfBirth "1982-04-05"^^xsd:date ;
                  mo:hasGender "female" ;
                  mo:hasName "Hayley Atwell" .
 
@@ -519,7 +518,7 @@ ex:movie_3 rdf:type owl:NamedIndividual ,
 ###  http://semantics.id/ns/example#writer_1
 ex:writer_1 rdf:type owl:NamedIndividual ,
                      mo:Writer ;
-            mo:hasDateOfBirth "1966-06-07" ;
+            mo:hasDateOfBirth "1966-06-07"^^xsd:date ;
             mo:hasGender "male" ;
             mo:hasName "Tom McCarthy" .
 
