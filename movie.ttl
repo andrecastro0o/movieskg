@@ -73,7 +73,6 @@ mo:hasCrew rdf:type owl:ObjectProperty ;
 ###  http://semantics.id/ns/example/movie#hasFilmStudio
 mo:hasFilmStudio rdf:type owl:ObjectProperty ;
                  rdfs:subPropertyOf owl:topObjectProperty ;
-                 rdfs:domain mo:Movie ;
                  rdfs:range mo:FilmStudio .
 
 
@@ -88,7 +87,14 @@ mo:hasGenre rdf:type owl:ObjectProperty ;
 ###  http://semantics.id/ns/example/movie#hasIMDBResource
 mo:hasIMDBResource rdf:type owl:ObjectProperty ;
                    rdfs:subPropertyOf owl:topObjectProperty ;
-                   rdfs:domain mo:Movie ;
+                   rdfs:domain [ owl:intersectionOf ( mo:Actor
+                                                      mo:FilmStudio
+                                                      mo:Movie
+                                                      mo:MovieDirector
+                                                      mo:Writer
+                                                    ) ;
+                                 rdf:type owl:Class
+                               ] ;
                    rdfs:range mo:IMDBResource .
 
 
@@ -403,7 +409,7 @@ ex:MandevilleFilms rdf:type owl:NamedIndividual ,
 ###  http://semantics.id/ns/example#WaltDisneyPictures
 ex:WaltDisneyPictures rdf:type owl:NamedIndividual ,
                                mo:FilmStudio ;
-                      mo:hasEstablishedDate "1985-06-21"^^xsd:date;
+                      mo:hasEstablishedDate "1985-06-21"^^xsd:date ;
                       rdfs:label "Walt Disney Pictures" .
 
 
