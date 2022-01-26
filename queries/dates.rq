@@ -3,9 +3,10 @@ PREFIX mo: <http://semantics.id/ns/example/movie#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 SELECT *
 WHERE {
-    {?s mo:hasEstablishedDate ?hasEstablishedDate}
-UNION
-    {?s mo:hasDateOfBirth ?hasDateOfBirth}
+    {?s mo:hasEstablishedDate ?date}
+    UNION
+    {?s mo:hasDateOfBirth ?date}
+    BIND(datatype(?date) AS ?datatype)
 }
 
 # WHERE {?s mo:hasDateOfBirth ?hasDateOfBirth

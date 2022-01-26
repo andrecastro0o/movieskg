@@ -228,7 +228,6 @@ mo:originalTitle rdf:type owl:DatatypeProperty ;
 
 ###  http://semantics.id/ns/example/movie#revenue
 mo:revenue rdf:type owl:DatatypeProperty ;
-           owl:equivalentProperty owl:topDataProperty ;
            rdfs:domain mo:Movie ;
            rdfs:range xsd:integer .
 
@@ -262,8 +261,6 @@ mo:vote_count rdf:type owl:DatatypeProperty ;
               rdfs:domain mo:IMDBResource ;
               rdfs:range xsd:integer .
 
-
-###  http://www.w3.org/2002/07/owl#topDataProperty
 
 #################################################################
 #    Classes
